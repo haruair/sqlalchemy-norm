@@ -8,7 +8,7 @@ from setuptools import setup
 
 setup(
     name='SQLAlchemy-Norm',
-    version='0.0.1',
+    version='0.0.2',
     url='https://github.com/haruair/sqlalchemy-norm',
     license='BSD',
     author='Edward Kim',
