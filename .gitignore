@@ -95,3 +95,6 @@ ENV/
 # Test Database
 *.db
 
+# Oh Dear OSX
+.DS_Store
+
