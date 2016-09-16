@@ -69,3 +69,10 @@ class TestExtNomarlizable():
         firstSecret = norm["secrets"][0]
         assert "message" not in firstSecret
         assert "created_at" in firstSecret
+
+    def test_additional_includes(self, UserWithinSecrets):
+        norm = UserWithinSecrets.vars(includes=["password"])
+
+        assert "password" in norm
+        assert isinstance(norm["password"], str)
+        assert norm["password"] == UserWithinSecrets.password
