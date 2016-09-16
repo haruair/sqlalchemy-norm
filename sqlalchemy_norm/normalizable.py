@@ -15,30 +15,25 @@ class Normalizable:
 
     def vars(self, includes=[], excludes=[], includes_only=None):
 
-        if hasattr(self, "__includes__"):
-            includes = includes + self.__includes__
+        original_keys = { c.key for c in inspect(self).mapper.column_attrs }
+        keys = set(original_keys)
 
-        if hasattr(self, "__includes_only__"):
-            if includes_only is None:
-                includes_only = []
-            includes_only = includes_only + self.__includes_only__
+        if hasattr(self, "__includes__"):
+            keys = keys.union(set(self.__includes__))
 
         if hasattr(self, "__excludes__"):
-            excludes = excludes + self.__excludes__
+            keys = keys - set(self.__excludes__)
 
-        includes = set(includes)
+        keys = keys.union(set(includes))
 
-        if includes_only is not None:
-            includes_only = set(includes_only)
-            includes = includes.union(includes_only)
-
-        excludes = set(excludes) - includes
-
-        keys = {c.key for c in inspect(self).mapper.column_attrs}
-        keys = keys.union(includes) - excludes
+        if len(excludes) > 0:
+            keys = keys - set(excludes)
 
         if includes_only is not None:
-            keys = keys.intersection(includes_only)
+            keys = set(includes_only)
+
+        elif hasattr(self, "__includes_only__"):
+            keys = set(self.__includes_only__)
 
         fields = { key: self.field_normalize(getattr(self, key))
                    for key in keys }
