@@ -103,13 +103,6 @@ class TestDotNotation():
         assert "suburb" not in norm["addresses"][0]
         assert "state" not in norm["addresses"][0]
 
-    def test_dot_notation_not_exists(self, UserWithinAddresses):
-        with pytest.raises(AttributeError):
-            norm = UserWithinAddresses.vars(excludes=[
-                'primary_address.suburb',
-                'primary_address.state'
-            ])
-
     def test_dot_notation_complex(self, UserWithinAddresses):
         norm = UserWithinAddresses.vars(
             includes=['primary_address'],
