@@ -19,6 +19,8 @@ def User(Base):
         point = sa.Column(sa.Integer)
         created_at = sa.Column(sa.DateTime)
 
+        primary_address = relationship("Address", uselist=False)
+
         __includes__ = ['addresses']
 
         @property
@@ -49,10 +51,10 @@ def Address(Base):
 @pytest.fixture
 def UserWithinAddresses(User, Address):
     me = User("Edward", datetime.now())
-    me.addresses = [
-        Address("edward@example.com"),
-        Address("haruair@example.com")
-    ]
+    addr1 = Address("edward@example.com")
+    addr2 = Address("haruair@example.com")
+    me.addresses = [ addr1, addr2 ]
+    me.primary_address = addr1
     return me
 
 
@@ -93,3 +95,10 @@ class TestComplexNomarlizable():
         assert "display_name" not in norm1
         assert "display_name" in norm2
         assert norm2["display_name"] == UserWithinAddresses.display_name
+
+    def test_complex_norm_single_relation(self, UserWithinAddresses):
+        primaryEmail = UserWithinAddresses.primary_address.email
+        norm = UserWithinAddresses.vars(includes=["primary_address"])
+
+        assert "primary_address" in norm
+        assert norm["primary_address"]["email"] == primaryEmail

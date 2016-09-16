@@ -10,6 +10,8 @@ class Normalizable:
         if isinstance(x, InstrumentedList):
             return [item.vars() for item in x
                 if isinstance(item, Normalizable)]
+        if isinstance(x, Normalizable):
+            return x.vars()
         else:
             return x
 
