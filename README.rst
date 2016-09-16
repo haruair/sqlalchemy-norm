@@ -20,6 +20,13 @@ An example of a simple code:
 
     users = session.query(User).all()
     norms = [user.vars() for user in users]
+    """
+    [
+        {"name": "Edward"},
+        {"name": "Koala"},
+        {"name": "Kangaroo"}
+    ]
+    """
 
 If you like,
 
