@@ -6,6 +6,7 @@ SQLAlchemy-Norm
 Working in Progress. Normalize SQLAlchemy Object to Plain dict and list.
 
 ::
+  
     pip install sqlalchemy-norm
 
 
