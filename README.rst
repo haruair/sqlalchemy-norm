@@ -9,7 +9,7 @@ An example of a simple code:
 
 .. code-block:: python
 
-    from yourapp.database import Base
+    from yourapp.database import Base, session
     from sqlalchemy_norm import Normalizable
 
     class User(Base, Normalizable):
@@ -17,6 +17,9 @@ An example of a simple code:
 
     me = User('Edward')
     norm = me.vars() # {"name": "Edward"}
+
+    users = session.query(User).all()
+    norms = [user.vars() for user in users]
 
 If you like,
 
