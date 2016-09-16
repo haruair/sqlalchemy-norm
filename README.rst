@@ -6,7 +6,7 @@ SQLAlchemy-Norm
 Working in Progress. Normalize SQLAlchemy Object to Plain dict and list.
 
 ::
-  
+
     pip install sqlalchemy-norm
 
 
@@ -186,6 +186,32 @@ Relationship between models,
       'name': 'Edward'
     }
     """
+
+Dot Notation
+~~~~~~~~~~~~
+
+Simple dot notation support. Not much fancy but it's worth than nothing.
+
+.. code-block:: python
+
+    norm1 = me.vars(
+        includes=['primary_address'],
+        excludes=[
+            'primary_address.suburb',
+            'primary_address.state'
+        ]
+    )
+
+    norm2 = me.vars(
+        includes_only=[
+            'id',
+            'primary_address',
+            'primary_address.phone'
+        ]
+    )
+
+If you need more examples, please check test cases in ``tests`` directory.
+
 
 .. |Build Status| image:: https://travis-ci.org/haruair/sqlalchemy-norm.svg?branch=master
    :target: https://travis-ci.org/haruair/sqlalchemy-norm
