@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import pytest
 import sqlalchemy as sa
 
@@ -12,15 +14,17 @@ def User(Base):
         name = sa.Column(sa.String)
         nickname = sa.Column(sa.String)
         point = sa.Column(sa.Integer)
+        created_at = sa.Column(sa.DateTime)
 
-        def __init__(self, name):
+        def __init__(self, name, created_at):
             self.name = name
+            self.created_at = created_at
 
     return User
 
 @pytest.fixture
 def BasicUser(User):
-    me = User("Edward")
+    me = User("Edward", datetime.now())
     me.point = 100
     return me
 
@@ -45,3 +49,8 @@ class TestNomarlizable():
         norm = BasicUser.vars()
         assert "nickname" in norm
         assert norm["nickname"] is None
+
+    def test_basic_norm_datetime(self, BasicUser):
+        norm = BasicUser.vars()
+        assert "created_at" in norm
+        assert BasicUser.created_at.isoformat() == norm["created_at"]
