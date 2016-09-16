@@ -5,6 +5,10 @@ SQLAlchemy-Norm
 
 Working in Progress. Normalize SQLAlchemy Object to Plain dict and list.
 
+::
+    pip install sqlalchemy-norm
+
+
 An example of a simple code:
 
 .. code-block:: python
@@ -188,4 +192,3 @@ Relationship between models,
    :target: https://pypi.python.org/pypi/SQLAlchemy-Norm/
 .. |Downloads| image:: https://img.shields.io/pypi/dm/SQLAlchemy-Norm.svg
    :target: https://pypi.python.org/pypi/SQLAlchemy-Norm/
-
