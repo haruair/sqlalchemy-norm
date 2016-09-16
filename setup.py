@@ -14,7 +14,7 @@ setup(
     author='Edward Kim',
     author_email='onward.edkim@gmail.com',
     description=(
-        'Normalize SQLAlchemy Object'
+        'Normalize SQLAlchemy Object to Plain dict and list'
     ),
     packages=['sqlalchemy_norm'],
     platforms='any',
@@ -28,4 +28,3 @@ setup(
         'pytest',
     ],
 )
-
