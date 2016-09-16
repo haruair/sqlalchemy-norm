@@ -6,6 +6,7 @@ Normalize SQLAlchemy Object to Plain dict and list
 """
 from setuptools import setup
 from codecs import open
+from os import path
 
 here = path.abspath(path.dirname(__file__))
 
