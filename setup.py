@@ -5,6 +5,12 @@ SQLAlchemy-Norm
 Normalize SQLAlchemy Object to Plain dict and list
 """
 from setuptools import setup
+from codecs import open
+
+here = path.abspath(path.dirname(__file__))
+
+with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
+    long_description = f.read()
 
 setup(
     name='SQLAlchemy-Norm',
@@ -16,6 +22,7 @@ setup(
     description=(
         'Normalize SQLAlchemy Object to Plain dict and list'
     ),
+    long_description=long_description,
     packages=['sqlalchemy_norm'],
     platforms='any',
     install_requires=[
