@@ -120,3 +120,27 @@ class TestDotNotation():
         assert "postcode" in norm["primary_address"]
         assert "suburb" not in norm["primary_address"]
         assert "state" not in norm["primary_address"]
+
+    def test_dot_notation_complex_includes_only(self, UserWithinAddresses):
+        norm = UserWithinAddresses.vars(
+            includes_only=[
+                'name',
+                'primary_address',
+                'primary_address.suburb',
+                'primary_address.state'
+            ]
+        )
+
+        assert "name" in norm
+        assert "id" not in norm
+        assert "nickname" not in norm
+        assert "point" not in norm
+
+        assert "primary_address" in norm
+        assert isinstance(norm["primary_address"], dict)
+
+        assert "street" not in norm["primary_address"]
+        assert "country" not in norm["primary_address"]
+        assert "postcode" not in norm["primary_address"]
+        assert "suburb" in norm["primary_address"]
+        assert "state" in norm["primary_address"]
