@@ -153,9 +153,9 @@ Why?
 ----
 
 When I tried to convert from SQLAlchemy object to JSON, it's not an easy job
-than I thought. I wonder if I can get plain objects from SQLAlchemy, it will
-be better than another way. SQLAlchemy already use ``__dict__`` internally, so
-I made kind of similar thing.
+than I expected. If SQLAlchemy objects could convert to plain objects, it will
+be better to handle it for most of converting situations, ``jsonify`` in Flask,
+especially.
 
 
 Contribute
