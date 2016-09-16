@@ -29,6 +29,28 @@ class Normalizable:
         original_keys = { c.key for c in inspect(self).mapper.column_attrs }
         keys = set(original_keys)
 
+        legacy = {
+            'includes': [],
+            'excludes': [],
+            'includes_only': []
+        }
+
+        if len(includes) > 0:
+            parsed = parse(includes)
+            if 'legacy' in parsed:
+                legacy['includes'] = parsed['legacy']
+                includes = parsed['property']
+        if len(excludes) > 0:
+            parsed = parse(excludes)
+            if 'legacy' in parsed:
+                legacy['excludes'] = parsed['legacy']
+                excludes = parsed['property']
+        if includes_only is not None and len(includes_only) > 0:
+            parsed = parse(includes_only)
+            if 'legacy' in parsed:
+                legacy['includes_only'] = parsed['legacy']
+                includes_only = parsed['property']
+
         if hasattr(self, "__includes__"):
             keys = keys.union(set(self.__includes__))
 
@@ -45,25 +67,6 @@ class Normalizable:
 
         elif hasattr(self, "__includes_only__"):
             keys = set(self.__includes_only__)
-
-        legacy = {
-            'includes': [],
-            'excludes': [],
-            'includes_only': []
-        }
-
-        if len(includes) > 0:
-            parsed = parse(includes)
-            if 'legacy' in parsed:
-                legacy['includes'] = parsed['legacy']
-        if len(excludes) > 0:
-            parsed = parse(excludes)
-            if 'legacy' in parsed:
-                legacy['excludes'] = parsed['legacy']
-        if includes_only is not None and len(includes_only) > 0:
-            parsed = parse(includes_only)
-            if 'legacy' in parsed:
-                legacy['includes_only'] = parsed['legacy']
 
         fields = { key: self.field_normalize(getattr(self, key), {
                         'includes': legacy['includes'][key]
