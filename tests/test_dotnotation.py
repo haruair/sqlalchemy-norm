@@ -43,17 +43,21 @@ def Address(Base):
         state = sa.Column(sa.String)
         country = sa.Column(sa.String)
         postcode = sa.Column(sa.String)
+        phone = sa.Column(sa.String)
 
         user_id = sa.Column(sa.Integer, ForeignKey('users.id'))
         user = relationship("User", backref=backref('addresses', order_by=id))
 
+        __excludes__ = ['phone']
+
         def __init__(self, street=None, suburb=None,
-                     state=None, country=None, postcode=None):
+                     state=None, country=None, postcode=None, phone=None):
             self.street = street
             self.suburb = suburb
             self.state = state
             self.country = country
             self.postcode = postcode
+            self.phone = phone
 
     return Address
 
@@ -66,7 +70,8 @@ def UserWithinAddresses(User, Address):
         suburb = 'Melburne',
         state = 'Victoria',
         country = 'Australia',
-        postcode = '3000'
+        postcode = '3000',
+        phone = '0400000001'
     )
 
     addr2 = Address(
@@ -74,7 +79,8 @@ def UserWithinAddresses(User, Address):
         suburb = 'South Melbourne',
         state = 'Victoria',
         country = 'Australia',
-        postcode = '3205'
+        postcode = '3205',
+        phone = '0400000002'
     )
 
     me.addresses = [ addr1, addr2 ]
@@ -87,7 +93,22 @@ class TestDotNotation():
         norm = UserWithinAddresses.vars()
         assert isinstance(norm, dict)
 
-    def test_dot_notation(self, UserWithinAddresses):
+    def test_dot_notation_includes(self, UserWithinAddresses):
+        norm = UserWithinAddresses.vars(includes=[
+            'addresses.phone'
+        ])
+
+        assert "addresses" in norm
+        assert isinstance(norm["addresses"], list)
+        assert len(norm["addresses"]) == len(UserWithinAddresses.addresses)
+
+        assert "phone" in norm["addresses"][0]
+        assert "country" in norm["addresses"][0]
+        assert "postcode" in norm["addresses"][0]
+        assert "suburb" in norm["addresses"][0]
+        assert "state" in norm["addresses"][0]
+
+    def test_dot_notation_excludes(self, UserWithinAddresses):
         norm = UserWithinAddresses.vars(excludes=[
             'addresses.suburb',
             'addresses.state'
@@ -102,6 +123,7 @@ class TestDotNotation():
         assert "postcode" in norm["addresses"][0]
         assert "suburb" not in norm["addresses"][0]
         assert "state" not in norm["addresses"][0]
+        assert "phone" not in norm["addresses"][0]
 
     def test_dot_notation_complex(self, UserWithinAddresses):
         norm = UserWithinAddresses.vars(
@@ -120,6 +142,7 @@ class TestDotNotation():
         assert "postcode" in norm["primary_address"]
         assert "suburb" not in norm["primary_address"]
         assert "state" not in norm["primary_address"]
+        assert "phone" not in norm["primary_address"]
 
     def test_dot_notation_complex_includes_only(self, UserWithinAddresses):
         norm = UserWithinAddresses.vars(
@@ -144,3 +167,4 @@ class TestDotNotation():
         assert "postcode" not in norm["primary_address"]
         assert "suburb" in norm["primary_address"]
         assert "state" in norm["primary_address"]
+        assert "phone" not in norm["primary_address"]
