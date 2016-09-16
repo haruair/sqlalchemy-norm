@@ -25,6 +25,30 @@ If you like,
     python setup.py test
 
 
+Why?
+----
+
+When I tried to convert from SQLAlchemy object to JSON, it's not an easy job
+than I expected. If SQLAlchemy objects could convert to plain objects, it will
+be better to handle it for most of converting situations, ``jsonify`` in Flask,
+especially.
+
+
+Contributing
+------------
+
+I'm not good at python and I don't know pythonic code that much. If you have
+any idea or opinion about the code, please leave an issue on the issue tracker.
+Contributing the code is always welcome.
+
+
+License
+-------
+
+This software is licensed under the `New BSD License`. See the ``LICENSE``
+file in the top distribution directory for the full license text.
+
+
 Usage
 -----
 
@@ -147,24 +171,6 @@ Relationship between models,
       'name': 'Edward'
     }
     """
-
-
-Why?
-----
-
-When I tried to convert from SQLAlchemy object to JSON, it's not an easy job
-than I expected. If SQLAlchemy objects could convert to plain objects, it will
-be better to handle it for most of converting situations, ``jsonify`` in Flask,
-especially.
-
-
-Contribute
-----------
-
-I'm not good at python and I don't know pythonic code that much. If you have
-any idea or opinion about the code, please leave an issue on the issue tracker.
-Contributing the code is always welcome.
-
 
 .. |Build Status| image:: https://travis-ci.org/haruair/sqlalchemy-norm.svg?branch=master
    :target: https://travis-ci.org/haruair/sqlalchemy-norm
