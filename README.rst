@@ -1,7 +1,7 @@
 SQLAlchemy-Norm
 ===============
 
-|Build Status| |Version Status| |Downloads|
+|Build Status| |Version Status|
 
 Working in Progress. Normalize SQLAlchemy Object to Plain dict and list.
 
@@ -216,6 +216,4 @@ If you need more examples, please check test cases in ``tests`` directory.
 .. |Build Status| image:: https://travis-ci.org/haruair/sqlalchemy-norm.svg?branch=master
    :target: https://travis-ci.org/haruair/sqlalchemy-norm
 .. |Version Status| image:: https://img.shields.io/pypi/v/SQLAlchemy-Norm.svg
-   :target: https://pypi.python.org/pypi/SQLAlchemy-Norm/
-.. |Downloads| image:: https://img.shields.io/pypi/dm/SQLAlchemy-Norm.svg
    :target: https://pypi.python.org/pypi/SQLAlchemy-Norm/
