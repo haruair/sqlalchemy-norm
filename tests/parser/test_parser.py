@@ -1,6 +1,7 @@
 import pytest
 from sqlalchemy_norm import parse
 
+
 class TestDotNotationParser():
     def test_convert_to_node_simple(self):
         content = [
@@ -10,7 +11,8 @@ class TestDotNotationParser():
 
         result = parse(content)
         expected = {
-            "property": {"name", "username"}
+            "property": {"name", "username"},
+            "legacy": {}
         }
 
         assert result == expected
